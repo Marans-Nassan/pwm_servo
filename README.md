@@ -7,7 +7,6 @@ Este projeto tem como objetivo controlar o movimento de um braço utilizando PWM
 ## Objetivos
 
 - Compreender o uso de PWM no controle de servo-motores.
-- Aplicar interrupções e temporizadores no Raspberry Pi Pico para controlar o movimento do servo.
 - Desenvolver um projeto prático para controle de movimento em sistemas embarcados.
 
 ## Componentes Utilizados
@@ -29,6 +28,14 @@ Este projeto tem como objetivo controlar o movimento de um braço utilizando PWM
 2. Clone este repositório.
 3. Compile o código utilizando CMake e o SDK do Pico.
 4. Carregue o arquivo `.uf2` gerado para o Raspberry Pi Pico.
+
+### Usando no Wokwi (integrado com o VSCode)
+
+Este projeto já está configurado para ser executado diretamente no **Wokwi** integrado ao **VSCode**. Para usar:
+
+1. Abra o **VSCode** com a extensão **Wokwi** instalada.
+2. O código já está configurado com os arquivos `diagram.json` e `wokwi.toml`, permitindo a simulação direta do projeto.
+3. Simule o código diretamente no VSCode, com o Raspberry Pi Pico e o servo-motor virtuais.
 
 ## Funcionamento
 
@@ -52,7 +59,7 @@ Este projeto tem como objetivo controlar o movimento de um braço utilizando PWM
 
 ## Motivação
 
-Este projeto foi desenvolvido com o objetivo de aplicar conceitos de PWM e interrupções para o controle de dispositivos como servo-motores em microcontroladores, proporcionando uma maneira prática de compreender a movimentação de atuadores.
+Este projeto foi desenvolvido com o objetivo de aplicar conceitos de PWM para o controle de dispositivos como servo-motores em microcontroladores, proporcionando uma maneira prática de compreender a movimentação de atuadores.
 
 ## Autor
 
