@@ -20,7 +20,7 @@ uint slice;
 uint16_t ciclo = 500;
 
 
-
+//inicialização do PWM
 void pwm_setup(){
 gpio_set_function(braco, GPIO_FUNC_PWM);
 slice = pwm_gpio_to_slice_num(braco);
@@ -29,11 +29,11 @@ pwm_set_wrap(slice, periodo);
 pwm_set_enabled(slice, true);
 }
 
-
+//Configuração do duty cycle do pwm
 void pwm_acao(uint16_t nivel){
 pwm_set_gpio_level(braco, nivel);
 }
-
+//Alarme para definir o duty cicle requesitado e ficar por 5 seg.
 int64_t turn_off_callback(alarm_id_t id, void *user_data){
         if (i == 0)pwm_acao(nivel_inici);
         if (i == 1)pwm_acao(nivel_medio);
@@ -43,6 +43,7 @@ int64_t turn_off_callback(alarm_id_t id, void *user_data){
         else timer_off = 1;
     return 0;
 }
+//Configuração para a movimetnação do braço após as 3 posições iniciais.
 void movimentacao(){
     if(up_down == 1){
         sleep_ms(10);
@@ -58,7 +59,7 @@ void movimentacao(){
     pwm_acao(ciclo);
 }
 
-int main(){
+int main(){ //Mantendo a precisão inicial do tempo.
 uint16_t ctime = to_us_since_boot(get_absolute_time());
 pwm_setup();  
 add_alarm_in_us(ctime, turn_off_callback, NULL, false);
