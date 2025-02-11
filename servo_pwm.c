@@ -3,11 +3,11 @@
 #include "hardware/pwm.h"
 #include "pico/time.h"
 
-#define braco 22
+#define led 12
 const uint16_t periodo = 19531; // wrap
 const float divisor = 128.0;
-uint16_t angmin = 500;
-uint16_t angmax = 2400;
+uint16_t ledmin = 500;
+uint16_t ledmax = 2400;
 uint16_t nivel_inici = 2400;
 uint16_t nivel_medio = 1470;
 uint16_t nivel_baixo = 500; 
@@ -22,8 +22,8 @@ uint16_t ciclo = 500;
 
 //inicialização do PWM
 void pwm_setup(){
-gpio_set_function(braco, GPIO_FUNC_PWM);
-slice = pwm_gpio_to_slice_num(braco);
+gpio_set_function(led, GPIO_FUNC_PWM);
+slice = pwm_gpio_to_slice_num(led);
 pwm_set_clkdiv(slice, divisor);
 pwm_set_wrap(slice, periodo);
 pwm_set_enabled(slice, true);
@@ -31,7 +31,7 @@ pwm_set_enabled(slice, true);
 
 //Configuração do duty cycle do pwm
 void pwm_acao(uint16_t nivel){
-pwm_set_gpio_level(braco, nivel);
+pwm_set_gpio_level(led, nivel);
 }
 //Alarme para definir o duty cicle requesitado e ficar por 5 seg.
 int64_t turn_off_callback(alarm_id_t id, void *user_data){
@@ -43,17 +43,17 @@ int64_t turn_off_callback(alarm_id_t id, void *user_data){
         else timer_off = 1;
     return 0;
 }
-//Configuração para a movimetnação do braço após as 3 posições iniciais.
+//Configuração para a intensidade do led após as 3 posições iniciais.
 void movimentacao(){
     if(up_down == 1){
         sleep_ms(10);
-        if(ciclo <= angmax)ciclo += high_low;
+        if(ciclo <= ledmax)ciclo += high_low;
         else up_down = 0;
     }
 
     else{
         sleep_ms(10);
-        if(ciclo >= angmin)ciclo -= high_low;
+        if(ciclo >= ledmin)ciclo -= high_low;
         else up_down = 1;
     }
     pwm_acao(ciclo);
